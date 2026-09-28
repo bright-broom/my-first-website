@@ -1,3 +1,4 @@
+import { SectionLink } from "@/components/section-link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { experiences } from "@/content/profile";
 import { Container, Eyebrow } from "../ui";
@@ -104,13 +105,13 @@ export function Experience() {
                 </div>
               </article>
             ))}
-            <a
+            <SectionLink
               href="#perspective"
               className="mt-3 flex min-h-16 items-center justify-between gap-5 border-t border-ink py-4 text-sm font-medium hover:text-blue"
             >
               この経験を、どんな視点につなげるか
               <ArrowUpRight size={20} aria-hidden="true" className="shrink-0" />
-            </a>
+            </SectionLink>
           </div>
         </div>
       </Container>

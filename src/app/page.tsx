@@ -1,3 +1,4 @@
+import { SectionLink } from "@/components/section-link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Hero } from "@/components/sections/hero";
@@ -11,9 +12,9 @@ import { Contact } from "@/components/sections/contact";
 export default function Home() {
   return (
     <div id="top">
-      <a className="skip-link" href="#main">
+      <SectionLink className="skip-link" href="#main">
         本文へ移動
-      </a>
+      </SectionLink>
       <SiteHeader />
       <main id="main" tabIndex={-1}>
         <Hero />

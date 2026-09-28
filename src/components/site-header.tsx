@@ -1,5 +1,7 @@
 "use client";
 
+import { SectionLink } from "@/components/section-link";
+
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navigation } from "@/content/profile";
@@ -71,9 +73,27 @@ export function SiteHeader() {
       document.removeEventListener("pointerdown", closeOutside);
     };
   }, [open]);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
   return (
     <header
       ref={header}
+      onClickCapture={(event) => {
+        if (
+          event.target instanceof Element &&
+          event.target.closest('a[href^="#"]')
+        )
+          setOpen(false);
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
       className="sticky top-0 z-30 border-b border-line/70 bg-paper/95 backdrop-blur-xl"
     >
       <Container className="flex min-h-24 items-center justify-between gap-6">
@@ -88,7 +108,7 @@ export function SiteHeader() {
           className="hidden items-center gap-8 md:flex"
         >
           {navigation.map((link) => (
-            <a
+            <SectionLink
               key={link.href}
               href={link.href}
               className="nav-link section-nav-link"
@@ -97,15 +117,15 @@ export function SiteHeader() {
               }
             >
               {link.label}
-            </a>
+            </SectionLink>
           ))}
-          <a
+          <SectionLink
             href="#contact"
             aria-current={activeSection === "contact" ? "location" : undefined}
             className="nav-link gap-3 rounded-full border border-ink px-5"
           >
             Contact <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
+          </SectionLink>
         </nav>
         <button
           ref={menuButton}
@@ -130,7 +150,7 @@ export function SiteHeader() {
         className="absolute inset-x-0 top-full border-b border-line bg-paper px-6 py-5 shadow-lg md:hidden"
       >
         {[...navigation, { href: "#contact", label: "Contact" }].map((link) => (
-          <a
+          <SectionLink
             key={link.href}
             href={link.href}
             aria-current={
@@ -141,7 +161,7 @@ export function SiteHeader() {
           >
             {link.label}
             <ArrowUpRight size={18} aria-hidden="true" />
-          </a>
+          </SectionLink>
         ))}
       </nav>
       <div

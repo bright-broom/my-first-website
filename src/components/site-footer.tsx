@@ -1,3 +1,4 @@
+import { SectionLink } from "@/components/section-link";
 import { ArrowUp } from "lucide-react";
 import { Container, Wordmark } from "./ui";
 
@@ -9,10 +10,10 @@ export function SiteFooter() {
           <Wordmark />
           <p className="eyebrow text-muted">© YUKA. PEOPLE, DATA & STORIES.</p>
         </div>
-        <a href="#top" className="nav-link gap-3">
+        <SectionLink href="#top" className="nav-link gap-3">
           Back to top
           <ArrowUp size={15} aria-hidden="true" />
-        </a>
+        </SectionLink>
       </Container>
     </footer>
   );

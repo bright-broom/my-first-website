@@ -1,3 +1,4 @@
+import { SectionLink } from "@/components/section-link";
 import { ArrowDown, Asterisk } from "lucide-react";
 import { profile } from "@/content/profile";
 import { OrbitArt } from "../orbit-art";
@@ -68,7 +69,7 @@ export function Hero() {
             RETAIL <span className="mx-3 text-blue">×</span> DATA{" "}
             <span className="mx-3 text-blue">×</span> INFLUENCE
           </p>
-          <a
+          <SectionLink
             href="#experience"
             className="group inline-flex min-h-11 items-center gap-4 text-xs text-muted"
           >
@@ -78,7 +79,7 @@ export function Hero() {
               aria-hidden="true"
               className="transition-transform group-hover:translate-y-1"
             />
-          </a>
+          </SectionLink>
         </div>
       </Container>
     </section>
