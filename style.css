@@ -678,3 +678,21 @@ h3+p {
     transition:none!important;
   }
 }
+
+/* Profile identity and values share the existing typography and color tokens. */
+.hero-name, .profile-name { font-size: 16px; letter-spacing: .12em; margin-top: 28px; }
+.hero-name span, .profile-name span { margin-left: 12px; color: var(--muted); font-family: Georgia, serif; font-style: italic; letter-spacing: 0; }
+.hero-name + .hero-jp { margin-top: 12px; }
+.profile-name { margin-top: 24px; }
+.values { padding-bottom: 110px; }
+.values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 44px; }
+.value-number { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 1px; color: var(--blue); }
+.values-grid h3 { font-family: inherit; font-size: 22px; letter-spacing: .03em; line-height: 1.7; margin-top: 22px; }
+.values-grid p { font-size: 14px; line-height: 2; margin-top: 20px; color: var(--muted); }
+@media (max-width: 640px) {
+  .values { padding-bottom: 65px; }
+  .values-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 30px; }
+  .values-grid article + article { border-top: 1px solid var(--line); padding-top: 30px; }
+  .values-grid h3 { margin-top: 16px; }
+  .hero-name { font-size: 14px; }
+}
