@@ -49,14 +49,17 @@ src/
 │   ├── share-image.png/route.tsx # ビルド時生成の共有画像
 │   └── not-found.tsx            # 404ページ
 ├── components/
-│   ├── site-header.tsx          # PCナビゲーション・モバイルメニュー
+│   ├── sections/                # 7つの独立したセクション
+│   ├── site-header.tsx          # 追従ナビ・現在位置・読了進捗・モバイルメニュー
+│   ├── site-footer.tsx          # 共通フッター
 │   ├── perspective-tabs.tsx     # キーボード対応のテーマ切り替え
 │   ├── orbit-art.tsx            # 独自SVGグラフィック
 │   └── ui.tsx                   # コンテナ・見出しラベル・リンク
 └── content/profile.ts          # 経歴・価値観・テーマ・FAQ・連絡先
 ```
 
-経歴・FAQは `src/content/profile.ts`、導入文やセクション構成は `src/app/page.tsx` を編集します。
+経歴・FAQは `src/content/profile.ts`、導入文や個別の画面は `src/components/sections/` 内の対応するTSXを編集します。
+`src/app/page.tsx` は7つのセクションを組み立てる入口です。単独のHTMLファイルやHTML文字列を埋め込む実装はありません。ブラウザへ配信するHTMLはNext.jsがReactから生成します。
 色・フォント・共通の文字サイズは `globals.css` の `@theme` と共通クラスで管理し、配置はTailwindで指定します。
 
 ### プロフィールの掲載方針
@@ -88,6 +91,7 @@ CIでは依存関係の導入、品質検査、Chromiumでのテストを実行�
 - 320 / 375 / 768 / 1024 / 1440px、および各幅のルート文字サイズ200%での横方向のはみ出し。
 - テーマ切り替えのクリック・矢印・Home操作、モバイルメニューの選択・Escape操作。
 - 本文へのスキップ、FAQ、動きを減らす設定。
+- 追従ナビの現在位置、読了進捗、移動先の見出しがヘッダーに隠れないこと。
 - axeによるWCAG A/AAの自動検出項目（通常、テーマ変更後、モバイルメニュー表示時）。
 - メタ情報・共有画像・未設定の連絡先表示・JavaScript無効時の基本コンテンツ。
 
@@ -111,7 +115,7 @@ PRのマージは本番公開の完了を意味しません。公開先の設定
 
 ## 今回の確認結果（2026-09-28）
 
-Node.js 24.21.0でlint・strict型検査・静的ビルドが成功。Chromiumのブラウザテスト11件が通過しました。
+Node.js 24.21.0でlint・strict型検査・静的ビルドが成功。Chromiumのブラウザテスト12件が通過しました。
 PC（1440px）とスマートフォン幅（375px）の画面を目視確認済みです。
 依存関係の監査では既知の脆弱性の報告は0件でした（監査時点の結果であり、安全性を保証するものではありません）。
 ESLint 9の保守上の制約は [設計・運用記録](docs/architecture.md) に記載しています。

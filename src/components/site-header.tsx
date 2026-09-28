@@ -7,8 +7,48 @@ import { Container, Wordmark } from "./ui";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const progress = useRef<HTMLDivElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+  useEffect(() => {
+    let frame = 0;
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("main section[id]"),
+    );
+    const update = () => {
+      frame = 0;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio =
+        total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
+      if (progress.current)
+        progress.current.style.transform = `scaleX(${ratio})`;
+      const threshold =
+        (header.current?.offsetHeight ?? 96) + window.innerHeight * 0.2;
+      let current = "";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= threshold)
+          current = section.id;
+      }
+      setActiveSection((previous) =>
+        previous === current ? previous : current,
+      );
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    const resize = new ResizeObserver(schedule);
+    resize.observe(document.body);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -34,7 +74,7 @@ export function SiteHeader() {
   return (
     <header
       ref={header}
-      className="relative z-30 border-b border-line/70 bg-paper"
+      className="sticky top-0 z-30 border-b border-line/70 bg-paper/95 backdrop-blur-xl"
     >
       <Container className="flex min-h-24 items-center justify-between gap-6">
         <div className="flex items-center gap-8">
@@ -48,12 +88,20 @@ export function SiteHeader() {
           className="hidden items-center gap-8 md:flex"
         >
           {navigation.map((link) => (
-            <a key={link.href} href={link.href} className="nav-link">
+            <a
+              key={link.href}
+              href={link.href}
+              className="nav-link section-nav-link"
+              aria-current={
+                activeSection === link.href.slice(1) ? "location" : undefined
+              }
+            >
               {link.label}
             </a>
           ))}
           <a
             href="#contact"
+            aria-current={activeSection === "contact" ? "location" : undefined}
             className="nav-link gap-3 rounded-full border border-ink px-5"
           >
             Contact <ArrowUpRight size={15} aria-hidden="true" />
@@ -85,6 +133,9 @@ export function SiteHeader() {
           <a
             key={link.href}
             href={link.href}
+            aria-current={
+              activeSection === link.href.slice(1) ? "location" : undefined
+            }
             onClick={() => setOpen(false)}
             className="flex min-h-14 items-center justify-between border-b border-line/60 py-3 font-display text-xl last:border-0"
           >
@@ -93,6 +144,12 @@ export function SiteHeader() {
           </a>
         ))}
       </nav>
+      <div
+        aria-hidden="true"
+        ref={progress}
+        data-reading-progress
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-blue"
+      />
     </header>
   );
 }

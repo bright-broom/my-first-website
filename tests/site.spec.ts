@@ -140,3 +140,42 @@ test("core profile and FAQ remain available without JavaScript", async ({
   await expect(page.locator("details[open]")).toContainText("小売");
   await context.close();
 });
+
+test("reading position follows navigation without covering the section heading", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const navigation = page.getByRole("navigation", {
+    name: "メインナビゲーション",
+    exact: true,
+  });
+  await navigation
+    .getByRole("link", { name: "Experience", exact: true })
+    .click();
+  await expect(
+    navigation.getByRole("link", { name: "Experience", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  const heading = await page.locator("#experience-title").boundingBox();
+  const header = await page.locator("header").boundingBox();
+  expect(heading!.y).toBeGreaterThan(header!.y + header!.height);
+  await navigation.getByRole("link", { name: "Contact", exact: true }).click();
+  await expect(
+    navigation.getByRole("link", { name: "Contact", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await expect
+    .poll(() =>
+      page
+        .locator("[data-reading-progress]")
+        .evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).a),
+    )
+    .toBeGreaterThan(0.8);
+  await page.getByRole("link", { name: "Back to top", exact: true }).click();
+  await expect
+    .poll(() =>
+      page
+        .locator("[data-reading-progress]")
+        .evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).a),
+    )
+    .toBeLessThan(0.01);
+});
