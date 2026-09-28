@@ -1,0 +1,58 @@
+# 設計・運用記録
+
+## 目的と情報設計
+
+プロフィールの経歴一覧から、読者がYukaの視点を理解できるサイトへ更新した。
+主メッセージは「人の可能性を、伝わる価値へ」。小売・デジタル分析・インフルエンサーマーケティングの経験を「聞く・理解する・つなぐ」として整理する。
+
+主導線は「3つの視点を知る」。関心に応じて生活者理解・強み・伝え方を切り替え、どんな問いから考える人物かを具体化する。
+副導線はプロフィール。経歴、価値観、FAQで理解を補い、最後に連絡先の準備状況を明示する。
+未確認の実績や受付可能なサービスを作らず、事実と紹介用コピーの境界を維持する。
+
+## 技術判断（2026-09-28）
+
+ユーザー指定のReact・TypeScript・Next.js・Tailwind CSSを採用。共通フロントエンドガイドとカタログ（2026-09-14、版1.0）を踏まえ、既存の青・アイボリー・独自SVGを継承した。
+
+- **Next.js App Router / React**：レイアウト・メタ情報・静的出力をまとめて管理。サーバー常駐やAPIは不要。
+- **TypeScript strict**：公開データとコンポーネントの境界を型で表現。`allowJs: false`。
+- **Tailwind CSS 4**：PostCSS経由で導入。色・文字は `@theme`、共通UIは `ui.tsx` で管理。
+- **Lucide React**：少数の操作・意味付け用アイコンのみ名前付きimport。装飾アイコンは読み上げ対象外。
+- **shadcn/ui**：標準候補として検討したが、現在必要なのはリンク・開閉メニュー・小さなタブのみ。ネイティブ要素と局所的なReactで実装し、UI基盤の追加は保留。
+- **動き**：CSSのみ。小さな軌道の動き、色の変化に限定し、reduced-motionで停止。
+- **フォント**：Fontsourceから取得したNoto Sans JP Variable、DM Sans Variable、Instrument Serifをセルフホスト。Google Fontsへの閲覧時通信やビルド時取得を不要にする。
+- **テスト**：Playwrightで静的出力を検証。axeは自動検出できる範囲の補助であり、実機・支援技術の確認は別。
+
+Next.js公式ESLint設定の依存プラグインがESLint 10に非対応だったため、互換性のある9.39.5に固定した。npmはこの版を非推奨と表示する。開発用の既知の保守課題として、関連プラグインの対応後に更新する。検査ルールの無効化や依存関係の強制上書きは行っていない。
+
+## 配布元・ライセンス
+
+正確な取得バージョンは `package-lock.json` が正本。今回の導入元はnpm公式レジストリ。
+
+| 採用物       | 公式情報                                                                                                                        | ライセンス  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| Next.js      | [導入](https://nextjs.org/docs/app/getting-started/installation)・[静的出力](https://nextjs.org/docs/app/guides/static-exports) | MIT         |
+| React        | [公式](https://react.dev/)                                                                                                      | MIT         |
+| TypeScript   | [公式](https://www.typescriptlang.org/)                                                                                         | Apache-2.0  |
+| Tailwind CSS | [Next.jsへの導入](https://tailwindcss.com/docs/installation/framework-guides/nextjs)                                            | MIT         |
+| Lucide       | [React](https://lucide.dev/guide/packages/lucide-react)                                                                         | ISC         |
+| フォント     | [Fontsource](https://fontsource.org/)・各パッケージ内LICENSE                                                                    | SIL OFL-1.1 |
+
+フォントライセンスは `public/font-licenses/` に保持。軌道グラフィックと共有画像は本プロジェクトの独自実装。
+外部素材の追加購入、アクセス解析、訪問者データの送信は行わない。
+
+## コンポーネントの責任
+
+- `content/profile.ts`：公開可能な文章と経歴・価値観・テーマ・FAQ・連絡先。
+- `page.tsx`：セクション構成、主見出しと導線。原則Server Component。
+- `site-header.tsx`：モバイル開閉、Escapeで閉じてトリガーへ復帰。モーダルではなく開閉型ナビゲーション。
+- `perspective-tabs.tsx`：選択状態と矢印/Home/End操作。読者の入力を外部送信しない。
+- `globals.css`：デザイントークン、フォント、共通ルール、動きを減らす設定。
+- `layout.tsx`：検索・共有メタ情報。確定したURLだけを設定。
+
+## 運用の境界
+
+公開連絡先は未設定。受付完了画面、フォーム、SNSリンクは作っていない。
+環境変数はビルド時に取り込まれるため、公開URLやbasePathを変えたら再ビルドする。
+静的出力はAPIや認証・送信処理を提供しない。追加要件が生じたら、配信方式と情報の扱いを再検討する。
+
+公開後に判断する指標は、主導線から視点紹介への移動、問い合わせ導線の利用など。アクセス解析は現時点で実装しておらず、成果数値は未計測。
