@@ -44,7 +44,7 @@ export function PerspectiveTabs() {
             tabIndex={selected === index ? 0 : -1}
             onClick={() => setSelected(index)}
             onKeyDown={(event) => onKeyDown(event, index)}
-            className={`flex min-h-16 items-center gap-3 rounded-t-xl px-5 py-4 text-left text-sm ${selected === index ? "bg-blue text-white" : "bg-surface text-ink hover:bg-line"}`}
+            className={`flex min-h-16 items-center gap-3 rounded-t-xl px-5 py-4 text-left text-sm ${selected === index ? "bg-accent text-white" : "bg-surface text-ink hover:bg-line"}`}
           >
             <span
               className={`font-display text-xs ${selected === index ? "text-white/85" : "text-muted"}`}
@@ -68,7 +68,7 @@ export function PerspectiveTabs() {
           id={`panel-${item.id}`}
           aria-labelledby={`tab-${item.id}`}
           tabIndex={0}
-          className="perspective-panel grid gap-10 rounded-b-2xl bg-blue p-7 text-white md:p-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20 lg:p-16"
+          className="perspective-panel grid gap-10 rounded-b-2xl bg-accent p-7 text-white md:p-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20 lg:p-16"
         >
           <div>
             <p className="mb-6 text-sm text-white/80">{item.question}</p>
@@ -81,7 +81,9 @@ export function PerspectiveTabs() {
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <p className="eyebrow mb-6 text-lime">QUESTIONS I START WITH</p>
+              <p className="eyebrow mb-6 text-highlight">
+                QUESTIONS I START WITH
+              </p>
               <ul className="space-y-5">
                 {item.points.map((point) => (
                   <li
@@ -91,7 +93,7 @@ export function PerspectiveTabs() {
                     <Check
                       size={17}
                       aria-hidden="true"
-                      className="mt-1 shrink-0 text-lime"
+                      className="mt-1 shrink-0 text-highlight"
                     />
                     {point}
                   </li>

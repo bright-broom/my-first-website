@@ -1,5 +1,5 @@
 import { SectionLink } from "@/components/section-link";
-import { ArrowDown, Asterisk } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { profile } from "@/content/profile";
 import { OrbitArt } from "../orbit-art";
 import { ActionLink, Container } from "../ui";
@@ -13,7 +13,7 @@ export function Hero() {
       <Container>
         <div className="mb-8 flex items-center justify-between gap-5 border-b border-line pb-5">
           <p className="eyebrow flex items-center gap-3 text-muted">
-            <span className="size-1.5 rounded-full bg-blue" />
+            <span className="size-1.5 rounded-full bg-accent" />
             PERSONAL PROFILE / {profile.name}
           </p>
           <span className="eyebrow hidden text-muted sm:block">
@@ -23,15 +23,11 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <div className="hero-intro relative z-10 pb-4">
             <div aria-hidden="true" className="mb-5 flex items-start gap-4">
-              <p className="font-display text-[clamp(5rem,12vw,11rem)] font-medium leading-[.85] tracking-[-.09em]">
-                Yuka<span className="text-blue">.</span>
+              <p className="font-display text-[clamp(5rem,12vw,11rem)] font-normal leading-[.85] tracking-[-.08em]">
+                Yuka<span className="text-accent">.</span>
               </p>
-              <Asterisk
-                className="mt-2 size-9 text-blue md:mt-5 md:size-14"
-                strokeWidth={1}
-              />
             </div>
-            <p className="mb-8 mt-5 font-serif text-[clamp(1.8rem,3vw,2.6rem)] italic leading-tight text-blue">
+            <p className="mb-8 mt-5 font-serif text-[clamp(1.8rem,3vw,2.6rem)] italic leading-tight text-accent">
               People first. Possibilities next.
             </p>
             <h1
@@ -66,8 +62,8 @@ export function Hero() {
         </div>
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line py-6 md:mt-14">
           <p className="eyebrow text-muted">
-            RETAIL <span className="mx-3 text-blue">×</span> DATA{" "}
-            <span className="mx-3 text-blue">×</span> INFLUENCE
+            RETAIL <span className="mx-3 text-accent">×</span> DATA{" "}
+            <span className="mx-3 text-accent">×</span> INFLUENCE
           </p>
           <SectionLink
             href="#experience"

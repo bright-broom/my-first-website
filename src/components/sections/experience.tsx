@@ -25,7 +25,7 @@ export function Experience() {
               3つの領域は、ひとつの線でつながっています。
             </p>
             <div
-              className="journey-art relative mt-9 overflow-hidden rounded-2xl bg-blue p-8 text-white"
+              className="journey-art relative mt-9 overflow-hidden rounded-2xl bg-accent p-8 text-white"
               aria-hidden="true"
             >
               <div className="relative z-10">
@@ -35,7 +35,7 @@ export function Experience() {
                   <br />
                   Understand.
                   <br />
-                  <span className="text-lime">Connect.</span>
+                  <span className="text-highlight">Connect.</span>
                 </p>
               </div>
               <svg
@@ -60,10 +60,10 @@ export function Experience() {
                   stroke="white"
                   transform="rotate(-28 145 140)"
                 />
-                <circle cx="162" cy="24" r="6" fill="#d9efab" />
+                <circle cx="162" cy="24" r="6" fill="#e5d6a2" />
               </svg>
               <ArrowDownRight
-                className="absolute bottom-8 right-8 text-lime"
+                className="absolute bottom-8 right-8 text-highlight"
                 size={34}
                 strokeWidth={1}
               />
@@ -76,7 +76,7 @@ export function Experience() {
                 className="experience-row relative grid grid-cols-[2.2rem_1fr] gap-5 border-t border-line py-9 first:pt-6 sm:grid-cols-[3.6rem_1fr] sm:gap-8"
               >
                 <div className="relative">
-                  <span className="font-display text-2xl tracking-tight text-blue sm:text-4xl">
+                  <span className="font-display text-2xl tracking-tight text-accent sm:text-4xl">
                     {item.number}
                   </span>
                   {index < experiences.length - 1 && (
@@ -99,7 +99,7 @@ export function Experience() {
                     {item.body}
                   </p>
                   <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-paper px-4 py-2 text-xs">
-                    <span className="size-1.5 rounded-full bg-blue" />
+                    <span className="size-1.5 rounded-full bg-accent" />
                     {item.lens}
                   </p>
                 </div>
@@ -107,7 +107,7 @@ export function Experience() {
             ))}
             <SectionLink
               href="#perspective"
-              className="mt-3 flex min-h-16 items-center justify-between gap-5 border-t border-ink py-4 text-sm font-medium hover:text-blue"
+              className="mt-3 flex min-h-16 items-center justify-between gap-5 border-t border-ink py-4 text-sm font-medium hover:text-accent"
             >
               この経験を、どんな視点につなげるか
               <ArrowUpRight size={20} aria-hidden="true" className="shrink-0" />

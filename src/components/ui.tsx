@@ -31,7 +31,9 @@ export function Eyebrow({
       className={`eyebrow flex items-center gap-4 ${light ? "text-white/70" : "text-muted"}`}
     >
       {number && (
-        <span className={light ? "text-lime" : "text-blue"}>{number} /</span>
+        <span className={light ? "text-highlight" : "text-accent"}>
+          {number} /
+        </span>
       )}
       {children}
     </p>
@@ -52,7 +54,7 @@ export function ActionLink({
   return (
     <SectionLink
       href={href}
-      className={`group inline-flex min-h-12 items-center justify-between gap-7 rounded-full border px-6 py-3 text-sm font-medium transition-colors ${secondary ? "border-line hover:border-ink hover:bg-white" : "border-blue bg-blue text-white hover:border-ink hover:bg-ink"}`}
+      className={`group inline-flex min-h-12 items-center justify-between gap-7 rounded-full border px-6 py-3 text-sm font-medium transition-colors ${secondary ? "border-line hover:border-ink hover:bg-white" : "border-accent bg-accent text-white hover:border-ink hover:bg-ink"}`}
     >
       {children}
       <Icon
@@ -70,7 +72,7 @@ export function Wordmark() {
       aria-label="Yuka トップへ"
       className="inline-flex min-h-11 items-center font-display text-[2.4rem] font-semibold tracking-[-.1em]"
     >
-      yuka<span className="text-blue">.</span>
+      yuka<span className="text-accent">.</span>
     </SectionLink>
   );
 }

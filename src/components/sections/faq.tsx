@@ -23,7 +23,7 @@ export function Faq() {
                 <Plus
                   size={18}
                   aria-hidden="true"
-                  className="shrink-0 text-blue transition-transform group-open:rotate-45"
+                  className="shrink-0 text-accent transition-transform group-open:rotate-45"
                 />
               </summary>
               <p className="max-w-2xl pb-7 pr-8 text-sm leading-[2.1] text-muted">

@@ -7,7 +7,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="bg-ink py-14 text-paper lg:py-20"
+      className="contact-section bg-ink py-14 text-paper lg:py-20"
     >
       <Container>
         <div className="flex items-center justify-between">
@@ -18,7 +18,7 @@ export function Contact() {
             size={32}
             strokeWidth={1}
             aria-hidden="true"
-            className="text-lime"
+            className="text-highlight"
           />
         </div>
         <div className="mt-9 grid items-end gap-9 lg:grid-cols-[1.5fr_1fr]">
@@ -30,7 +30,7 @@ export function Contact() {
               Good things
               <br />
               start with{" "}
-              <span className="font-serif italic text-lime">people.</span>
+              <span className="font-serif italic text-highlight">people.</span>
             </h2>
             <p className="mt-7 text-sm leading-[2] text-paper/75">
               新しい可能性は、人とのつながりから。
@@ -39,7 +39,7 @@ export function Contact() {
             </p>
           </div>
           <div className="rounded-xl border border-white/20 p-7">
-            <p className="eyebrow text-lime">CONTACT</p>
+            <p className="eyebrow text-highlight">CONTACT</p>
             {profile.email ? (
               <a
                 className="mt-5 inline-flex min-h-12 items-center gap-5 text-lg underline decoration-white/40 underline-offset-8"
@@ -51,7 +51,7 @@ export function Contact() {
             ) : (
               <>
                 <p className="mt-4 flex items-center gap-3 text-sm">
-                  <span className="size-1.5 rounded-full bg-lime" />
+                  <span className="size-1.5 rounded-full bg-highlight" />
                   お問い合わせ窓口は準備中です
                 </p>
                 <p className="mt-4 text-xs leading-[2] text-paper/65">

@@ -12,7 +12,7 @@ export function Values() {
         <div className="grid gap-8 lg:grid-cols-[.7fr_2fr] lg:gap-16">
           <div>
             <Eyebrow number="04">MY VALUES</Eyebrow>
-            <p className="mt-8 font-serif text-5xl italic text-blue">
+            <p className="mt-8 font-serif text-5xl italic text-accent">
               A little more
               <br />
               human.
@@ -31,7 +31,7 @@ export function Values() {
                   className="grid gap-4 border-t border-line pt-7 sm:grid-cols-[1fr_1.15fr] sm:gap-8"
                 >
                   <div>
-                    <p className="eyebrow text-blue">
+                    <p className="eyebrow text-accent">
                       {value.number} / {value.en}
                     </p>
                     <h3 className="mt-3 text-base font-medium">
